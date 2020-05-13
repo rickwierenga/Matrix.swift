@@ -257,6 +257,27 @@ public struct Matrix {
     public func countNonzeros() -> Int {
         return size - countZeros()
     }
+
+    // MARK: - Sorting
+    public func sorted(_ axis: Axis, sortOrder: vDSP.SortOrder) -> Matrix {
+        let data: [[Float32]]
+        switch axis {
+        case .rows:
+            data = [[Float32]]((0..<rows).map({
+                var data = self[$0, ...(columns-1)].data
+                vDSP.sort(&data, sortOrder: sortOrder)
+                return data
+            }))
+            return Matrix(data: data.flatMap({ $0 }), rows: rows, columns: columns)
+        case .columns:
+            data = [[Float32]]((0..<columns).map({
+                var data = self[...(rows-1), $0].data
+                vDSP.sort(&data, sortOrder: (sortOrder == .ascending) ? .descending : .ascending)
+                return data
+            }))
+            return Matrix(data: data.flatMap({ $0 }), rows: columns, columns: rows).transposed()
+        }
+    }
 }
 
 extension Matrix: CustomStringConvertible {

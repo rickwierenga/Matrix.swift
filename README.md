@@ -164,6 +164,12 @@ Flatten:
 m.flatten()
 ```
 
+Sorting:
+```swift
+print(m.sorted(.rows, sortOrder: .ascending))
+print(m.sorted(.columns, sortOrder: .descending))
+```
+
 ## License
 
 Matrix.swift is available under the MIT License. See [`LICENSE`](https://github.com/rickwierenga/Matrix.swift/blob/master/LICENSE) for details.
