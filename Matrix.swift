@@ -298,66 +298,66 @@ extension Matrix: Equatable {}
 
 // MARK: - Matrix arithmatic
 // MARK: Matrix-scalar
-public func &=(lhs: inout Matrix, rhs: Float32) {
+public func &= (lhs: inout Matrix, rhs: Float32) {
     lhs = Matrix(repeating: rhs, rows: lhs.rows, columns: lhs.columns)
 }
 
-public func +(lhs: Matrix, rhs: Float32) -> Matrix {
+public func + (lhs: Matrix, rhs: Float32) -> Matrix {
     var x = Matrix(repeating: 0, rows: lhs.rows, columns: lhs.columns)
     var scalar = rhs // We need a variable to get a pointer.
     vDSP_vsadd(lhs.data, 1, &scalar, &x.data, 1, vDSP_Length(x.columns * x.rows))
     return x
 }
 
-public func -(lhs: Matrix, rhs: Float32) -> Matrix {
+public func - (lhs: Matrix, rhs: Float32) -> Matrix {
     return lhs + (-1 * rhs)
 }
 
-public func *(lhs: Matrix, rhs: Float32) -> Matrix {
+public func * (lhs: Matrix, rhs: Float32) -> Matrix {
     var x = Matrix(repeating: 0, rows: lhs.rows, columns: lhs.columns)
     var scalar = rhs // We need a variable to get a pointer.
     vDSP_vsmul(lhs.data, 1, &scalar, &x.data, 1, vDSP_Length(x.columns * x.rows))
     return x
 }
 
-public func /(lhs: Matrix, rhs: Float32) -> Matrix {
+public func / (lhs: Matrix, rhs: Float32) -> Matrix {
     var x = Matrix(repeating: 0, rows: lhs.rows, columns: lhs.columns)
     var scalar = rhs // We need a variable to get a pointer.
     vDSP_vsdiv(lhs.data, 1, &scalar, &x.data, 1, vDSP_Length(x.columns * x.rows))
     return x
 }
 
-public func +(lhs: Float32, rhs: Matrix) -> Matrix { rhs + lhs }
-public func +=(lhs: inout Matrix, rhs: Float32) { lhs = lhs + rhs }
-public func -(lhs: Float32, rhs: Matrix) -> Matrix { rhs + (-1 * lhs) }
-public func -=(lhs: inout Matrix, rhs: Float32) { lhs = lhs - rhs }
-public func *(lhs: Float32, rhs: Matrix) -> Matrix { rhs * lhs }
-public func *=(lhs: inout Matrix, rhs: Float32) { lhs = lhs * rhs }
-public func /=(lhs: inout Matrix, rhs: Float32) { lhs = lhs / rhs }
+public func + (lhs: Float32, rhs: Matrix) -> Matrix { rhs + lhs }
+public func += (lhs: inout Matrix, rhs: Float32) { lhs = lhs + rhs }
+public func - (lhs: Float32, rhs: Matrix) -> Matrix { rhs + (-1 * lhs) }
+public func -= (lhs: inout Matrix, rhs: Float32) { lhs = lhs - rhs }
+public func * (lhs: Float32, rhs: Matrix) -> Matrix { rhs * lhs }
+public func *= (lhs: inout Matrix, rhs: Float32) { lhs = lhs * rhs }
+public func /= (lhs: inout Matrix, rhs: Float32) { lhs = lhs / rhs }
 
 // MARK: Matrix-matrix
-public func +(lhs: Matrix, rhs: Matrix) -> Matrix {
+public func + (lhs: Matrix, rhs: Matrix) -> Matrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns)
     var x = Matrix(repeating: 0.0, rows: lhs.rows, columns: lhs.columns)
     vDSP_vadd(rhs.data, 1, lhs.data, 1, &x.data, 1, vDSP_Length(lhs.columns * lhs.rows))
     return x
 }
 
-public func -(lhs: Matrix, rhs: Matrix) -> Matrix {
+public func - (lhs: Matrix, rhs: Matrix) -> Matrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns)
     var x = Matrix(repeating: 0.0, rows: lhs.rows, columns: lhs.columns)
     vDSP_vsub(rhs.data, 1, lhs.data, 1, &x.data, 1, vDSP_Length(lhs.columns * lhs.rows))
     return x
 }
 
-public func *(lhs: Matrix, rhs: Matrix) -> Matrix {
+public func * (lhs: Matrix, rhs: Matrix) -> Matrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns)
     var x = Matrix(repeating: 0.0, rows: lhs.rows, columns: lhs.columns)
     vDSP_vmul(rhs.data, 1, lhs.data, 1, &x.data, 1, vDSP_Length(lhs.columns * lhs.rows))
     return x
 }
 
-public func /(lhs: Matrix, rhs: Matrix) -> Matrix {
+public func / (lhs: Matrix, rhs: Matrix) -> Matrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns)
     var x = Matrix(repeating: 0.0, rows: lhs.rows, columns: lhs.columns)
     vDSP_vdiv(rhs.data, 1, lhs.data, 1, &x.data, 1, vDSP_Length(lhs.columns * lhs.rows))
@@ -365,7 +365,7 @@ public func /(lhs: Matrix, rhs: Matrix) -> Matrix {
 }
 
 infix operator •: MultiplicationPrecedence
-public func •(lhs: Matrix, rhs: Matrix) -> Matrix {
+public func • (lhs: Matrix, rhs: Matrix) -> Matrix {
     precondition(lhs.columns == rhs.rows)
     var x = Matrix(repeating: 0, rows: lhs.rows, columns: rhs.columns)
     cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0,
@@ -373,8 +373,9 @@ public func •(lhs: Matrix, rhs: Matrix) -> Matrix {
     return x
 }
 
-public func +=(lhs: inout Matrix, rhs: Matrix) { lhs = lhs + rhs }
-public func -=(lhs: inout Matrix, rhs: Matrix) { lhs = lhs - rhs }
-public func *=(lhs: inout Matrix, rhs: Matrix) { lhs = lhs * rhs }
+public func += (lhs: inout Matrix, rhs: Matrix) { lhs = lhs + rhs }
+public func -= (lhs: inout Matrix, rhs: Matrix) { lhs = lhs - rhs }
+public func *= (lhs: inout Matrix, rhs: Matrix) { lhs = lhs * rhs }
 infix operator •= : MultiplicationPrecedence
-public func •=(lhs: inout Matrix, rhs: Matrix) { lhs = lhs • rhs }
+public func •= (lhs: inout Matrix, rhs: Matrix) { lhs = lhs • rhs }
+
