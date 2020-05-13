@@ -24,9 +24,9 @@
 
 import Accelerate
 
-extension Array where Element: Comparable {
-    internal func argmax() -> Index? { indices.max(by: { self[$0] < self[$1] }) }
-    internal func argmin() -> Index? { indices.min(by: { self[$0] < self[$1] }) }
+extension Array where Element == Float32 {
+    internal func argmax() -> Index? { indices.max(by: { self[$0].isNaN || self[$0] < self[$1] }) }
+    internal func argmin() -> Index? { indices.min(by: { self[$0].isNaN || self[$0] < self[$1] }) }
 }
 
 public struct Matrix {
