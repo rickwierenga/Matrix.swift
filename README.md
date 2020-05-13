@@ -6,7 +6,7 @@ Matrix.swift is a lightweight, easy-to-use Matrix data structure in pure Swift. 
 
 ## Performance
 
-Processing an MNIST-like image (on a 2016 15" MacBook Pro):
+Processing a batch of MNIST-like images (on a 2016 15" MacBook Pro):
 
 ```swift
 let totalSeconds = (0..<100).reduce(0.0) { _,_ in
