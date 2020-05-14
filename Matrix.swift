@@ -251,10 +251,10 @@ public struct Matrix {
         return Matrix(data: data, rows: rows, columns: columns)
     }
 
-    public func flip(_ axis: Axis) -> Matrix {
+    public func flipped(_ axis: Axis) -> Matrix {
         switch axis {
         case .rows:
-            return self.reversed().flip(.columns)
+            return self.reversed().flipped(.columns)
         case .columns:
             let data = [Float32]( (0..<rows).map({ self[$0, 0...].data.reversed() }).joined() )
             return Matrix(data: data, rows: rows, columns: columns)

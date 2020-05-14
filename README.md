@@ -153,10 +153,10 @@ m.countNonzeros()
 m.countZeros()
 ```
 
-Flip:
+Flipping:
 ```swift
-m.flip(.rows)
-m.flip(.columns)
+m.flipped(.rows)
+m.flipped(.columns)
 ```
 
 Flatten:
