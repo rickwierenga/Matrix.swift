@@ -120,6 +120,18 @@ m.sum(.rows)
 m.sum(.columns)
 ```
 
+Max:
+```swift
+m.max(.rows)
+m.max(.columns)
+```
+
+Min:
+```swift
+m.min(.rows)
+m.min(.columns)
+```
+
 Argmax:
 ```swift
 m.argmax(.rows)

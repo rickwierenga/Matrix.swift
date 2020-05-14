@@ -215,6 +215,20 @@ public struct Matrix {
         }
     }
 
+    public func max(_ axis: Axis) -> [Float32] {
+        switch axis {
+        case .rows: return (0..<rows).map({ self[$0, ...(columns-1)].data.max()! })
+        case .columns: return (0..<columns).map({ self[...(rows-1), $0].data.max()! })
+        }
+    }
+
+    public func min(_ axis: Axis) -> [Float32] {
+        switch axis {
+        case .rows: return (0..<rows).map({ self[$0, ...(columns-1)].data.min()! })
+        case .columns: return (0..<columns).map({ self[...(rows-1), $0].data.min()! })
+        }
+    }
+
     public func argmax(_ axis: Axis) -> [Int] {
         switch axis {
         case .rows: return (0..<rows).map({ self[$0, ...(columns-1)].data.argmax()! })
@@ -241,8 +255,8 @@ public struct Matrix {
     }
 
     public func diagonal() -> Matrix {
-        let data = (0..<min(rows, columns)).map({ self[$0, $0] })
-        return Matrix(data: data, rows: 1, columns: min(rows, columns))
+        let data = (0..<Swift.min(rows, columns)).map({ self[$0, $0] })
+        return Matrix(data: data, rows: 1, columns: Swift.min(rows, columns))
     }
 
     public func reversed() -> Matrix {
