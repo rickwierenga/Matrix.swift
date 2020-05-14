@@ -191,6 +191,18 @@ public struct Matrix {
         set { self[0...rows.upperBound, 0...columns.upperBound] = newValue }
     }
 
+    // MARK: - Reverse indexing
+    public func firstIndex(where predicate: (Float) -> Bool) -> (row: Int?, column: Int?) {
+        for i in 0..<rows {
+            for j in 0..<columns {
+                if predicate(self[i, j]) {
+                    return (i, j)
+                }
+            }
+        }
+        return (nil, nil)
+    }
+
     // MARK: - Statistics
     public enum Axis {
         case rows, columns
