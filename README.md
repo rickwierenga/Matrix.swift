@@ -170,6 +170,11 @@ m.sorted(.rows, sortOrder: .ascending)
 m.sorted(.columns, sortOrder: .descending)
 ```
 
+Searching:
+```swift
+m.firstIndex(where: {$0 == 9}) // -> (row: Optional(2), column: Optional(2))
+```
+
 ## License
 
 Matrix.swift is available under the MIT License. See [`LICENSE`](https://github.com/rickwierenga/Matrix.swift/blob/master/LICENSE) for details.
