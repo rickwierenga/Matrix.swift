@@ -29,7 +29,7 @@ extension Array where Element == Float32 {
     internal func argmin() -> Index? { indices.min(by: { self[$0].isNaN || self[$0] < self[$1] }) }
 }
 
-public struct Matrix {
+public struct Matrix: Equatable, Hashable {
     internal var data: [Float32]
     public let columns: Int
     public let rows: Int
@@ -319,8 +319,6 @@ extension Matrix: CustomStringConvertible {
         return lines.joined(separator: "\n")
     }
 }
-
-extension Matrix: Equatable {}
 
 // MARK: - Matrix arithmatic
 // MARK: Matrix-scalar
