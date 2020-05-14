@@ -166,8 +166,8 @@ m.flatten()
 
 Sorting:
 ```swift
-print(m.sorted(.rows, sortOrder: .ascending))
-print(m.sorted(.columns, sortOrder: .descending))
+m.sorted(.rows, sortOrder: .ascending)
+m.sorted(.columns, sortOrder: .descending)
 ```
 
 ## License
