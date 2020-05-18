@@ -20,9 +20,16 @@ let totalSeconds = (0..<100).reduce(0.0) { _,_ in
 print("\(totalSeconds / 100) seconds")
 ```
 
-```
-1.41e-06 seconds // ≈ 0.00141 ms ≈ 1.41 µs
-```
+Tool|Processing 100 MNIST-like images|Supported Platforms|Size
+-|-|-|-
+[Native implementation](https://github.com/fastai/course-v3/blob/master/nbs/swift/01_matmul.ipynb)|4628.63 µs¹|all|-
+**Matrix.swift**|1.41 µs¹|macOS, iOS, tvOS, watchOS|16 kB
+[Swift for TensorFlow](https://github.com/tensorflow/swift)|1.04 µs¹|macOS, Ubuntu|~2.4GB
+[NumPy](https://numpy.org)|69.3 µs¹|macOS, Ubuntu, Windows|88.2MB
+
+¹ On a 2016 15" MacBook Pro, no eGPU
+
+Keep in mind that these tools are designed for different usecases. Which one is the best depends on the project.
 
 ## Installation
 
